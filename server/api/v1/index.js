@@ -1,9 +1,7 @@
 const router = require('express').Router();
 
-router.route('/clients').get((req, res, next) => {
-  res.json({
-    message: 'GET all clients',
-  });
-});
+const clients = require('./clients/routes');
+
+router.use('/clients', clients);
 
 module.exports = router;
