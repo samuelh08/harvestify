@@ -1,9 +1,14 @@
 exports.create = (req, res, next) => {
-  res.json({});
+  const { body = {} } = req;
+  res.json(body);
 };
 
 exports.read = (req, res, next) => {
-  res.json({});
+  const { params = {} } = req;
+  const { id } = params;
+  res.json({
+    id,
+  });
 };
 
 exports.update = (req, res, next) => {
