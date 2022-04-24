@@ -1,6 +1,16 @@
-exports.create = (req, res, next) => {
+const Model = require('./model');
+
+exports.create = async (req, res, next) => {
   const { body = {} } = req;
-  res.json(body);
+  const document = new Model(body);
+
+  try {
+    const doc = await document.save();
+    res.status(201);
+    res.json(doc);
+  } catch (err) {
+    next(new Error(err));
+  }
 };
 
 exports.read = (req, res, next) => {
