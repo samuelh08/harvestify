@@ -14,7 +14,7 @@ app.use(logger.requests);
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
-// parse application/jason
+// parse application/json
 app.use(bodyParser.json());
 
 // Setup router and routes
