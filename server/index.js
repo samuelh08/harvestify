@@ -1,15 +1,25 @@
 const express = require('express');
 
-const port = 3000;
-
 const app = express();
 
-app.get('/', (req, res) => {
+app.get('/', (req, res, next) => {
   res.send('Hello World');
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+app.use((req, res, next) => {
+  res.status(404);
+  res.json({
+    message: 'Error. Route not found',
+  });
+});
+
+app.use((err, req, res, next) => {
+  const { statusCode = 500, message } = err;
+
+  res.status(statusCode);
+  res.json({
+    message,
+  });
 });
 
 module.exports = app;
