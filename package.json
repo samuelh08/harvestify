@@ -4,9 +4,9 @@
   "description": "��#\u0000 \u0000h\u0000a\u0000r\u0000v\u0000e\u0000s\u0000t\u0000i\u0000f\u0000y\u0000\r\u0000 \u0000",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --inspect",
-    "start": "node index",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "cross-env NODE_ENV=development nodemon --inspect",
+    "start": "cross-env NODE_ENV=production node index",
+    "test": "cross-env NODE_ENV=test echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
     "nodemon": "^2.0.15"
   },
   "dependencies": {
+    "cross-env": "^7.0.3",
     "express": "^4.17.3"
   }
 }
