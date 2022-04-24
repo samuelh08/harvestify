@@ -4,7 +4,7 @@
   "description": "��#\u0000 \u0000h\u0000a\u0000r\u0000v\u0000e\u0000s\u0000t\u0000i\u0000f\u0000y\u0000\r\u0000 \u0000",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon",
+    "dev": "nodemon --inspect",
     "start": "node index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
