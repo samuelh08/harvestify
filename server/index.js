@@ -2,6 +2,7 @@ const express = require('express');
 const requestId = require('express-request-id')();
 
 const logger = require('./config/logger');
+const api = require('./api/v1');
 
 // Init app
 const app = express();
@@ -9,6 +10,10 @@ const app = express();
 // Setup middleware
 app.use(requestId);
 app.use(logger.requests);
+
+// Setup router and routes
+app.use('/api', api);
+app.use('/api/v1', api);
 
 // Routes
 app.get('/', (req, res, next) => {
