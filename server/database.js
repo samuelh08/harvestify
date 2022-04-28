@@ -17,9 +17,6 @@ exports.connect = (
 
   mongoose.connect(dburl, {
     ...options,
-    userNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
   });
 
   mongoose.connection.on('open', () => {
