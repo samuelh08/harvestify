@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 const logger = require('./config/logger');
 
 exports.connect = (
+  // eslint-disable-next-line
   { protocol = 'mongodb', url, username = '', password = '' },
+  // eslint-disable-next-line
   options = {}
 ) => {
   let dburl = '';
