@@ -16,6 +16,7 @@ const requests = morgan(requestFormat, {
   stream: {
     write: (message) => {
       // Remove all line breaks
+      // const log = stripFinalNewLine(message);
       const log = message.replace(/(\r\n|\n|\r)/gm, '');
       return logger.info(log);
     },

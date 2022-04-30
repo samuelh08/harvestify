@@ -1,5 +1,5 @@
 const express = require('express');
-// const requestId = require('express-request-id');
+// const requestId = require('express-request-id')();
 const bodyParser = require('body-parser');
 
 const logger = require('./config/logger');
@@ -46,6 +46,8 @@ app.use((err, req, res, next) => {
 
   res.status(statusCode);
   res.json({
+    error: true,
+    statusCode,
     message,
   });
 });

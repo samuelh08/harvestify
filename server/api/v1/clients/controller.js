@@ -26,7 +26,10 @@ exports.create = async (req, res, next) => {
   try {
     const doc = await document.save();
     res.status(201);
-    res.json(doc);
+    res.json({
+      succes: true,
+      data: doc,
+    });
   } catch (err) {
     next(new Error(err));
   }
@@ -35,30 +38,39 @@ exports.create = async (req, res, next) => {
 exports.read = async (req, res, next) => {
   const { doc = {} } = req;
 
-  res.json(doc);
+  res.json({
+    succes: true,
+    data: doc,
+  });
 };
 
-exports.update = (req, res, next) => {
+exports.update = async (req, res, next) => {
   const { doc = {}, body = {} } = req;
 
   Object.assign(doc, body);
 
   try {
-    const updated = await.doc.save();
-    res.json(updated);
-  } catch (error) {
+    const updated = await doc.save();
+    res.json({
+      succes: true,
+      data: updated,
+    });
+  } catch (err) {
     next(new Error(err));
   }
 };
 
-exports.delete = (req, res, next) => {
+exports.delete = async (req, res, next) => {
   const { doc = {}, body = {} } = req;
 
   Object.assign(doc, body);
 
   try {
-    const removed = await.doc.save();
-    res.json(removed);
+    const removed = await doc.save();
+    res.json({
+      succes: true,
+      data: removed,
+    });
   } catch (err) {
     next(new Error(err));
   }
