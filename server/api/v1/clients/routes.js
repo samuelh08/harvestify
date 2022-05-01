@@ -8,7 +8,7 @@ const controller = require('./controller');
  * /api/clients/:id DELETE - DELETE
  */
 
-router.route('/').post(controller.create);
+router.route('/').post(controller.create).get(controller.all);
 
 router.param('id', controller.id);
 
