@@ -3,31 +3,23 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const fields = {
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    trim: true,
-    lowercase: true,
-  },
-  password: {
-    type: String,
-    required: true,
-    trim: true,
-    minLength: 6,
-  },
-  name: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  lastname: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  tel: {
+  score: {
     type: Number,
+    required: true,
+    min: 1,
+    max: 5,
+  },
+  comment: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+};
+
+const references = {
+  cartId: {
+    type: Schema.Types.ObjectId,
+    ref: 'cart',
     required: true,
   },
 };
@@ -39,4 +31,5 @@ const client = new Schema(fields, {
 module.exports = {
   Model: mongoose.model('client', client),
   fields,
+  references,
 };
