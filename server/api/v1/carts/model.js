@@ -33,10 +33,24 @@ const references = {
 
 const cart = new Schema(fields, {
   timestamps: true,
+  toJSON: {
+    virtuals: true,
+  },
 });
+
+const virtuals = {
+  cartItems: {
+    ref: 'cartItem',
+    localField: '_id',
+    foreignField: 'cartId',
+  },
+};
+
+cart.virtuals('cartItems', virtuals.cartItems);
 
 module.exports = {
   Model: mongoose.model('cart', cart),
   fields,
   references,
+  virtuals,
 };

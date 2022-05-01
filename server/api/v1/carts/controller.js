@@ -1,13 +1,16 @@
-const { Model, fields, references } = require('./model');
+const { Model, fields, references, virtuals } = require('./model');
 const {
   paginationParseParams,
   sortParseParams,
   sortCompactToStr,
-  filterByNested,
+  populateToObject,
 } = require('../../../utils');
 const { Model: Client } = require('../clients/model');
 
-const referencesNames = Object.getOwnPropertyNames(references);
+const referencesNames = [
+  Object.getOwnPropertyNames(references),
+  Object.getOwnPropertyNames(virtuals),
+];
 
 exports.parentId = async (req, res, next) => {
   const { params = {} } = req;
@@ -56,17 +59,17 @@ exports.id = async (req, res, next, id) => {
 };
 
 exports.all = async (req, res, next) => {
-  const { query = {}, params = {} } = req;
+  const { query = {} } = req;
   const { limit, page, skip } = paginationParseParams(query);
   const { sortBy, direction } = sortParseParams(query, fields);
-  const { filters, populate } = filterByNested(params, referencesNames);
+  const populate = populateToObject(referencesNames, virtuals);
 
   const all = Model.find({})
     .sort(sortCompactToStr(sortBy, direction))
     .skip(skip)
     .limit(limit)
     .populate(populate);
-  const count = Model.countDocuments(filters);
+  const count = Model.countDocuments();
 
   try {
     const data = await Promise.all([all.exec(), count.exec()]);
