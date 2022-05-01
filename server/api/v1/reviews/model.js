@@ -24,12 +24,12 @@ const references = {
   },
 };
 
-const client = new Schema(fields, {
+const review = new Schema(fields, {
   timestamps: true,
 });
 
 module.exports = {
-  Model: mongoose.model('client', client),
+  Model: mongoose.model('review', review),
   fields,
   references,
 };

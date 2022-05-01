@@ -23,12 +23,12 @@ const references = {
   },
 };
 
-const client = new Schema(fields, {
+const cartItem = new Schema(fields, {
   timestamps: true,
 });
 
 module.exports = {
-  Model: mongoose.model('client', client),
+  Model: mongoose.model('cartItem', cartItem),
   fields,
   references,
 };
