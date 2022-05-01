@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const cartsRouter = require('../carts/routes');
 const controller = require('./controller');
 
 /*
@@ -17,5 +18,7 @@ router
   .get(controller.read)
   .put(controller.update)
   .delete(controller.delete);
+
+router.use('/:clientId/carts', cartsRouter);
 
 module.exports = router;
