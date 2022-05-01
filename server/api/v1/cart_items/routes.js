@@ -2,10 +2,10 @@ const router = require('express').Router();
 const controller = require('./controller');
 
 /*
- * /api/carts/ POST - CREATE
- * /api/carts/:id GET - READ ONE
- * /api/carts/:id PUT - UPDATE
- * /api/carts/:id DELETE - DELETE
+ * /api/cart_items/ POST - CREATE
+ * /api/cart_items/:id GET - READ ONE
+ * /api/cart_items/:id PUT - UPDATE
+ * /api/cart_items/:id DELETE - DELETE
  */
 
 router.route('/').post(controller.create).get(controller.all);
