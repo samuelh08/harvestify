@@ -33,4 +33,7 @@ const client = new Schema(fields, {
   timestamps: true,
 });
 
-module.exports = mongoose.model('client', client);
+module.exports = {
+  Model: mongoose.model('client', client),
+  fields,
+};
