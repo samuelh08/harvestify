@@ -25,6 +25,59 @@ exports.id = async (req, res, next, id) => {
   }
 };
 
+exports.signup = async (req, res, next) => {
+  const { body = {} } = req;
+  const document = new Model(body);
+
+  try {
+    const doc = await document.save();
+    res.status(201);
+    res.json({
+      success: true,
+      data: doc,
+    });
+  } catch (err) {
+    next(new Error(err));
+  }
+};
+
+exports.login = async (req, res, next) => {
+  const { body = {} } = req;
+  const { email = '', password = '' } = body;
+
+  try {
+    const client = await Model.findOne({ email }).exec();
+    if (!client) {
+      const message = 'Email or password are invalid';
+
+      return next({
+        success: false,
+        message,
+        statusCode: 401,
+        level: 'info',
+      });
+    }
+
+    const verified = await client.verifyPassword(password);
+    if (!verified) {
+      const message = 'Email or password are invalid';
+
+      return next({
+        success: false,
+        message,
+        statusCode: 401,
+        level: 'info',
+      });
+    }
+    return res.json({
+      success: true,
+      data: client,
+    });
+  } catch (err) {
+    return next(new Error(err));
+  }
+};
+
 exports.all = async (req, res, next) => {
   const { query = {} } = req;
   const { limit, page, skip } = paginationParseParams(query);
@@ -42,7 +95,7 @@ exports.all = async (req, res, next) => {
     const pages = Math.ceil(total / limit);
 
     res.json({
-      succes: true,
+      success: true,
       data: docs,
       meta: {
         limit,
@@ -59,27 +112,11 @@ exports.all = async (req, res, next) => {
   }
 };
 
-exports.create = async (req, res, next) => {
-  const { body = {} } = req;
-  const document = new Model(body);
-
-  try {
-    const doc = await document.save();
-    res.status(201);
-    res.json({
-      succes: true,
-      data: doc,
-    });
-  } catch (err) {
-    next(new Error(err));
-  }
-};
-
 exports.read = async (req, res, next) => {
   const { doc = {} } = req;
 
   res.json({
-    succes: true,
+    success: true,
     data: doc,
   });
 };
@@ -92,7 +129,7 @@ exports.update = async (req, res, next) => {
   try {
     const updated = await doc.save();
     res.json({
-      succes: true,
+      success: true,
       data: updated,
     });
   } catch (err) {
@@ -108,7 +145,7 @@ exports.delete = async (req, res, next) => {
   try {
     const removed = await doc.save();
     res.json({
-      succes: true,
+      success: true,
       data: removed,
     });
   } catch (err) {
