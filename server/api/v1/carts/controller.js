@@ -24,7 +24,7 @@ exports.parentId = async (req, res, next) => {
         const message = 'Client not found';
 
         next({
-          succes: false,
+          success: false,
           message,
           statusCode: 404,
           level: 'warn',
@@ -77,7 +77,7 @@ exports.all = async (req, res, next) => {
     const pages = Math.ceil(total / limit);
 
     res.json({
-      succes: true,
+      success: true,
       data: docs,
       meta: {
         limit,
@@ -105,7 +105,7 @@ exports.create = async (req, res, next) => {
     const doc = await document.save();
     res.status(201);
     res.json({
-      succes: true,
+      success: true,
       data: doc,
     });
   } catch (err) {
@@ -117,7 +117,7 @@ exports.read = async (req, res, next) => {
   const { doc = {} } = req;
 
   res.json({
-    succes: true,
+    success: true,
     data: doc,
   });
 };
@@ -130,7 +130,7 @@ exports.update = async (req, res, next) => {
   try {
     const updated = await doc.save();
     res.json({
-      succes: true,
+      success: true,
       data: updated,
     });
   } catch (err) {
@@ -146,7 +146,7 @@ exports.delete = async (req, res, next) => {
   try {
     const removed = await doc.save();
     res.json({
-      succes: true,
+      success: true,
       data: removed,
     });
   } catch (err) {

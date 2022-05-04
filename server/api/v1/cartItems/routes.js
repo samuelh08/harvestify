@@ -3,6 +3,7 @@ const controller = require('./controller');
 
 /*
  * /api/cartItems/ POST - CREATE
+ * /api/cartItems/ GET - READ ALL
  * /api/cartItems/:id GET - READ ONE
  * /api/cartItems/:id PUT - UPDATE
  * /api/cartItems/:id DELETE - DELETE
