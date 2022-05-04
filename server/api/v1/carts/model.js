@@ -46,7 +46,7 @@ const virtuals = {
   },
 };
 
-cart.virtuals('cartItems', virtuals.cartItems);
+cart.virtual('cartItems', virtuals.cartItems);
 
 module.exports = {
   Model: mongoose.model('cart', cart),
