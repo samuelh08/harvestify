@@ -1,10 +1,10 @@
-const Model = require('./model');
+const { Model, fields } = require('./model');
+const { signToken } = require('../auth');
 const {
   paginationParseParams,
   sortParseParams,
   sortCompactToStr,
 } = require('../../../utils');
-const { fields } = require('./model');
 
 exports.id = async (req, res, next, id) => {
   try {
@@ -31,10 +31,16 @@ exports.signup = async (req, res, next) => {
 
   try {
     const doc = await document.save();
+    const { _id } = doc;
+    const token = signToken({ _id });
+
     res.status(201);
     res.json({
       success: true,
       data: doc,
+      meta: {
+        token,
+      },
     });
   } catch (err) {
     next(new Error(err));
@@ -69,9 +75,15 @@ exports.login = async (req, res, next) => {
         level: 'info',
       });
     }
+
+    const { _id } = client;
+    const token = signToken({ _id });
     return res.json({
       success: true,
       data: client,
+      meta: {
+        token,
+      },
     });
   } catch (err) {
     return next(new Error(err));

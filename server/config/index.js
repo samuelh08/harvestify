@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config('');
 
 const config = {
   server: {
@@ -31,6 +31,10 @@ const config = {
       sort: 'createdAt',
       direction: 'desc',
     },
+  },
+  token: {
+    secret: process.env.TOKEN_SECRET,
+    expires: process.env.TOKEN_EXPIRES,
   },
 };
 
