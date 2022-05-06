@@ -8,7 +8,7 @@ const fields = {
     required: true,
     trim: true,
   },
-  delivery_price: {
+  deliveryPrice: {
     type: Number,
     required: true,
   },
