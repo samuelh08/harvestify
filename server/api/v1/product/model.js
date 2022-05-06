@@ -4,11 +4,12 @@ const product = {
   // _id: mongoose.Schema.Types.ObjectId,  automatically added by mongoose
   producer_Id: {
     // eslint-disable-next-line
-    mongoose.Schema.Types.ObjectId,
+    String: mongoose.Schema.Types.ObjectId,
+    ref: 'producer',
     required: true,
   },
-  name: {String, required: true},
-  picture: {String, required: true},
+  name: { String, required: true },
+  picture: { String, required: true },
   category: { String, required: true },
   price: { Number, required: true },
 };
