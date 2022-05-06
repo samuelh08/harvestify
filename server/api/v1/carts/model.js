@@ -19,7 +19,7 @@ const fields = {
 };
 
 const references = {
-  clientId: {
+  userId: {
     type: Schema.Types.ObjectId,
     ref: 'client',
     required: true,

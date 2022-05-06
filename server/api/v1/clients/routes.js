@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const cartsRouter = require('../carts/routes');
 const controller = require('./controller');
+const { auth, me } = require('../auth');
 
 /*
  * /api/clients/signup POST - CREATE
@@ -11,19 +12,18 @@ const controller = require('./controller');
  * /api/clients/:id DELETE - DELETE
  */
 
+router.param('id', controller.id);
+
 router.route('/').get(controller.all);
 
 router.route('/signup').get(controller.signup);
-
 router.route('/login').get(controller.login);
-
-router.param('id', controller.id);
 
 router
   .route('/:id')
-  .get(controller.read)
-  .put(controller.update)
-  .delete(controller.delete);
+  .get(auth, me, controller.read)
+  .put(auth, me, controller.update)
+  .delete(auth, me, controller.delete);
 
 router.use('/:clientId/carts', cartsRouter);
 
