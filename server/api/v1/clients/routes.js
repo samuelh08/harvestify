@@ -16,8 +16,8 @@ router.param('id', controller.id);
 
 router.route('/').get(controller.all);
 
-router.route('/signup').get(controller.signup);
-router.route('/login').get(controller.login);
+router.route('/signup').post(controller.signup);
+router.route('/login').post(controller.login);
 
 router
   .route('/:id')
