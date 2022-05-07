@@ -16,7 +16,6 @@ router.param('id', controller.id);
 
 router
   .route('/:id')
-  .get(auth, controller.read)
   .get(auth, owner, controller.read)
   .put(auth, owner, controller.update)
   .delete(auth, owner, controller.delete);
