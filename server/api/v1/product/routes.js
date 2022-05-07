@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const controller = require('./controller');
+const { auth, owner } = require('../auth');
 
 /*
  * /api/products/ POST - CREATE
@@ -15,8 +16,9 @@ router.param('id', controller.id);
 
 router
   .route('/:id')
-  .get(controller.read)
-  .put(controller.update)
-  .delete(controller.delete);
+  .get(auth, controller.read)
+  .get(auth, owner, controller.read)
+  .put(auth, owner, controller.update)
+  .delete(auth, owner, controller.delete);
 
 module.exports = router;
