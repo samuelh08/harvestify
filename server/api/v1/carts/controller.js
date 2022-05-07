@@ -14,10 +14,10 @@ const referencesNames = [
 
 exports.parentId = async (req, res, next) => {
   const { params = {} } = req;
-  const { clientId = null } = params;
-  if (clientId) {
+  const { userId = null } = params;
+  if (userId) {
     try {
-      const doc = await Client.findById(clientId).exec();
+      const doc = await Client.findById(userId).exec();
       if (doc) {
         next();
       } else {
@@ -95,7 +95,11 @@ exports.all = async (req, res, next) => {
 };
 
 exports.create = async (req, res, next) => {
-  const { body = {}, params = {} } = req;
+  const { body = {}, params = {}, decoded = {} } = req;
+  const { _id = null } = decoded;
+  if (_id) {
+    body.userId = _id;
+  }
 
   Object.assign(body, params);
 

@@ -8,7 +8,7 @@ const fields = {
     required: true,
     trim: true,
   },
-  delivery_price: {
+  deliveryPrice: {
     type: Number,
     required: true,
   },
@@ -19,7 +19,7 @@ const fields = {
 };
 
 const references = {
-  clientId: {
+  userId: {
     type: Schema.Types.ObjectId,
     ref: 'client',
     required: true,
