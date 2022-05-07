@@ -29,8 +29,6 @@ const references = {
   },
 };
 
-module.exports = mongoose.model('product', product);
-
 const product = new Schema(fields, {
   timestamps: true,
 });
