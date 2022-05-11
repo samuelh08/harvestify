@@ -4,8 +4,35 @@ const {
   sortParseParams,
   sortCompactToStr,
 } = require('../../../utils');
+const { Model: Cart } = require('../carts/model');
 
 const referencesNames = Object.getOwnPropertyNames(references);
+
+exports.parentId = async (req, res, next) => {
+  const { params = {} } = req;
+  const { cartId = null } = params;
+  if (cartId) {
+    try {
+      const doc = await Cart.findById(cartId).exec();
+      if (doc) {
+        next();
+      } else {
+        const message = 'ORder not found';
+
+        next({
+          success: false,
+          message,
+          statusCode: 404,
+          level: 'warn',
+        });
+      }
+    } catch (err) {
+      next(new Error(err));
+    }
+  } else {
+    next();
+  }
+};
 
 exports.id = async (req, res, next, id) => {
   const populate = referencesNames.join(' ');

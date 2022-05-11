@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { body } = require('express-validator');
 
 const { Schema } = mongoose;
 
@@ -44,13 +45,22 @@ const virtuals = {
     localField: '_id',
     foreignField: 'cartId',
   },
+  review: {
+    ref: 'review',
+    localField: '_id',
+    foreignField: 'reviewId',
+  },
 };
 
 cart.virtual('cartItems', virtuals.cartItems);
+cart.virtual('review', virtuals.review);
+
+const sanitizers = [body('adress').escape()];
 
 module.exports = {
   Model: mongoose.model('cart', cart),
   fields,
   references,
   virtuals,
+  sanitizers,
 };

@@ -4,6 +4,8 @@ const router = require('express').Router({
 const controller = require('./controller');
 const { auth, owner } = require('../auth');
 const cartItemsRouter = require('../cartItems/routes');
+const reviewsRouter = require('../reviews/routes');
+const { sanitizers } = require('./model');
 
 /*
  * /api/carts/ POST - CREATE
@@ -17,15 +19,16 @@ router.param('id', controller.id);
 
 router
   .route('/')
-  .post(auth, controller.parentId, controller.create)
+  .post(auth, sanitizers, controller.parentId, controller.create)
   .get(auth, controller.parentId, controller.all);
 
 router
   .route('/:id')
   .get(auth, controller.parentId, controller.read)
-  .put(auth, owner, controller.parentId, controller.update)
+  .put(auth, owner, sanitizers, controller.parentId, controller.update)
   .delete(auth, owner, controller.parentId, controller.delete);
 
 router.use('/:cartId/cartItems', cartItemsRouter);
+router.use('/:cartId/reviews', reviewsRouter);
 
 module.exports = router;

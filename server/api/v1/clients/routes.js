@@ -2,6 +2,7 @@ const router = require('express').Router();
 const cartsRouter = require('../carts/routes');
 const controller = require('./controller');
 const { auth, me } = require('../auth');
+const { sanitizers } = require('./model');
 
 /*
  * /api/clients/signup POST - CREATE
@@ -16,13 +17,13 @@ router.param('id', controller.id);
 
 router.route('/').get(controller.all);
 
-router.route('/signup').post(controller.signup);
-router.route('/login').post(controller.login);
+router.route('/signup').post(sanitizers, controller.signup);
+router.route('/login').post(sanitizers, controller.login);
 
 router
   .route('/:id')
   .get(auth, me, controller.read)
-  .put(auth, me, controller.update)
+  .put(auth, me, sanitizers, controller.update)
   .delete(auth, me, controller.delete);
 
 router.use('/:clientId/carts', cartsRouter);
