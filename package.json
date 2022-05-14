@@ -41,6 +41,8 @@
     "mongoose": "^6.3.1",
     "morgan": "^1.10.0",
     "strip-final-newline": "^3.0.0",
+    "swagger-jsdoc": "^6.2.1",
+    "swagger-ui-express": "^4.4.0",
     "validator": "^13.7.0",
     "winston": "^3.7.2"
   }

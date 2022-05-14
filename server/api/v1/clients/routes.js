@@ -15,9 +15,39 @@ const { sanitizers } = require('./model');
 
 router.param('id', controller.id);
 
+/**
+ * @swagger
+ * /clients/:
+ *  get:
+ *    tags:
+ *      - Clients
+ *    description: Get all clients
+ *    produces:
+ *      -application/json
+ *    responses:
+ *      200:
+ *        schema:
+ *          type: array
+ *          items:
+ *            type: object
+ *            properties:
+ *              id:
+ *                type: string
+ *              email:
+ *                type: string
+ *              password:
+ *                type: string
+ *              firstname:
+ *                type: string
+ *              lastname:
+ *                type: string
+ *              tel:
+ *                type: number
+ */
 router.route('/').get(controller.all);
 
 router.route('/signup').post(sanitizers, controller.signup);
+
 router.route('/login').post(sanitizers, controller.login);
 
 router
