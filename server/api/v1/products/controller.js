@@ -1,16 +1,44 @@
-const { Model, fields } = require('./model'); // import mongoose model
-const { signToken } = require('../auth');
+const { Model, fields, references } = require('./model');
 const {
   paginationParseParams,
   sortParseParams,
   sortCompactToStr,
+  populateToObject,
 } = require('../../../utils');
-// impor utils functions and auth middleware
+const { Model: Producer } = require('../producers/model');
 
-// get the producer by id
+const referencesNames = [Object.getOwnPropertyNames(references)];
+
+exports.parentId = async (req, res, next) => {
+  const { params = {} } = req;
+  const { userId = null } = params;
+  if (userId) {
+    try {
+      const doc = await Producer.findById(userId).exec();
+      if (doc) {
+        next();
+      } else {
+        const message = 'Producer not found';
+
+        next({
+          success: false,
+          message,
+          statusCode: 404,
+          level: 'warn',
+        });
+      }
+    } catch (err) {
+      next(new Error(err));
+    }
+  } else {
+    next();
+  }
+};
+
 exports.id = async (req, res, next, id) => {
+  const populate = referencesNames.join(' ');
   try {
-    const doc = await Model.findById(id).exec();
+    const doc = await Model.findById(id).populate(populate).exec();
     if (!doc) {
       const message = `${Model.modelName} not found`;
       next({
@@ -27,83 +55,17 @@ exports.id = async (req, res, next, id) => {
   }
 };
 
-// signup
-exports.signup = async (req, res, next) => {
-  const { body = {} } = req;
-  const document = new Model(body);
-
-  try {
-    const doc = await document.save();
-    const { _id } = doc;
-    const token = signToken({ _id });
-
-    res.status(201);
-    res.json({
-      success: true,
-      data: doc,
-      meta: {
-        token,
-      },
-    });
-  } catch (err) {
-    next(new Error(err));
-  }
-};
-
-// Authentication middleware
-exports.login = async (req, res, next) => {
-  const { body = {} } = req;
-  const { email = '', password = '' } = body;
-
-  try {
-    const producer = await Model.findOne({ email }).exec();
-    if (!producer) {
-      const message = 'Email or password are invalid';
-
-      return next({
-        success: false,
-        message,
-        statusCode: 401,
-        level: 'info',
-      });
-    }
-
-    const verified = await producer.verifyPassword(password);
-    if (!verified) {
-      const message = 'Email or password are invalid';
-
-      return next({
-        success: false,
-        message,
-        statusCode: 401,
-        level: 'info',
-      });
-    }
-
-    const { _id } = producer;
-    const token = signToken({ _id });
-    return res.json({
-      success: true,
-      data: producer,
-      meta: {
-        token,
-      },
-    });
-  } catch (err) {
-    return next(new Error(err));
-  }
-};
-
-// get all producers
 exports.all = async (req, res, next) => {
   const { query = {} } = req;
   const { limit, page, skip } = paginationParseParams(query);
   const { sortBy, direction } = sortParseParams(query, fields);
+  const populate = populateToObject(referencesNames, virtuals);
 
   const all = Model.find({})
     .sort(sortCompactToStr(sortBy, direction))
     .skip(skip)
-    .limit(limit);
+    .limit(limit)
+    .populate(populate);
   const count = Model.countDocuments();
 
   try {
@@ -129,7 +91,29 @@ exports.all = async (req, res, next) => {
   }
 };
 
-// get the producer by id
+exports.create = async (req, res, next) => {
+  const { body = {}, params = {}, decoded = {} } = req;
+  const { _id = null } = decoded;
+  if (_id) {
+    body.userId = _id;
+  }
+
+  Object.assign(body, params);
+
+  const document = new Model(body);
+
+  try {
+    const doc = await document.save();
+    res.status(201);
+    res.json({
+      success: true,
+      data: doc,
+    });
+  } catch (err) {
+    next(new Error(err));
+  }
+};
+
 exports.read = async (req, res, next) => {
   const { doc = {} } = req;
 
@@ -139,11 +123,10 @@ exports.read = async (req, res, next) => {
   });
 };
 
-// update the producer by id
 exports.update = async (req, res, next) => {
-  const { doc = {}, body = {} } = req;
+  const { doc = {}, body = {}, params = {} } = req;
 
-  Object.assign(doc, body);
+  Object.assign(doc, body, params);
 
   try {
     const updated = await doc.save();
@@ -156,7 +139,6 @@ exports.update = async (req, res, next) => {
   }
 };
 
-// delete the producer by id
 exports.delete = async (req, res, next) => {
   const { doc = {}, body = {} } = req;
 
