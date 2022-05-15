@@ -13,7 +13,10 @@ const localDefinition = {
 
 const options = {
   swaggerDefinition: merge(swaggerDefinition, localDefinition),
-  apis: ['./server/api/v1/clients/routes.js'],
+  apis: [
+    './server/api/v1/clients/routes.js',
+    './server/api/v1/carts/routes.js',
+  ],
 };
 
 module.exports = swaggerJSDoc(options);
