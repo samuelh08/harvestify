@@ -16,6 +16,7 @@ const options = {
   apis: [
     './server/api/v1/clients/routes.js',
     './server/api/v1/carts/routes.js',
+    './server/api/v1/cartItems/routes.js',
   ],
 };
 
