@@ -3,7 +3,7 @@ const swaggerDefinition = {
   info: {
     title: 'Harvestify API',
     version: '1.0.0',
-    description: 'Checklist API Documentation',
+    description: 'Harvestify API Documentation',
   },
   basePaths: '/api/',
   schemes: ['http'],
