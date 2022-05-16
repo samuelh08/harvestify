@@ -5,7 +5,35 @@ const {
   sortCompactToStr,
 } = require('../../../utils');
 
+const { Model: Client } = require('../clients/model');
+
 const referencesNames = Object.getOwnPropertyNames(references);
+
+exports.parentId = async (req, res, next) => {
+  const { params = {} } = req;
+  const { userId = null } = params;
+  if (userId) {
+    try {
+      const doc = await Client.findById(userId).exec();
+      if (doc) {
+        next();
+      } else {
+        const message = 'Client not found';
+
+        next({
+          success: false,
+          message,
+          statusCode: 404,
+          level: 'warn',
+        });
+      }
+    } catch (err) {
+      next(new Error(err));
+    }
+  } else {
+    next();
+  }
+};
 
 exports.id = async (req, res, next, id) => {
   const populate = referencesNames.join(' ');

@@ -36,7 +36,7 @@ const fields = {
     trim: true,
   },
   tel: {
-    type: Number,
+    type: String,
     required: true,
   },
 };

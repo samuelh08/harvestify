@@ -12,7 +12,7 @@ const fields = {
   },
   comment: {
     type: String,
-    required: true,
+    required: false,
     trim: true,
   },
 };

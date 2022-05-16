@@ -4,7 +4,7 @@ const { body } = require('express-validator');
 const { Schema } = mongoose;
 
 const fields = {
-  adress: {
+  address: {
     type: String,
     required: true,
     trim: true,

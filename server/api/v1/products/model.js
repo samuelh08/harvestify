@@ -5,9 +5,8 @@ const { Schema } = mongoose;
 const fields = {
   quantity: {
     // quantity of product in stock
-    type: String,
+    type: Number,
     required: true,
-    trim: true,
   },
   unit: {
     // unit of product [kg, liter, piece, etc]
@@ -15,14 +14,29 @@ const fields = {
     required: true,
     trim: true,
   },
-  name: { String, required: true }, // name of product
-  picture: { String, required: true }, // picture of product
-  category: { String, required: true }, // category of product [vegetable, fruit, etc]
-  price: { Number, required: true }, // price of product by unit
+  name: {
+    type: String,
+    required: true,
+    trim: true,
+  }, // name of product
+  picture: {
+    type: String,
+    required: true,
+    trim: true,
+  }, // picture of product
+  category: {
+    type: String,
+    required: true,
+    trim: true,
+  }, // category of product [vegetable, fruit, etc]
+  price: {
+    type: Number,
+    required: true,
+  }, // price of product by unit
 };
 
 const references = {
-  producerId: {
+  userId: {
     type: Schema.Types.ObjectId,
     ref: 'producer',
     required: true,
