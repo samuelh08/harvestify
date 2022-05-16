@@ -1,5 +1,6 @@
 const router = require('express').Router();
-// const locationRouter = require('../location/routes');
+const locationsRouter = require('../locations/routes');
+const productsRouter = require('../products/routes');
 const controller = require('./controller');
 
 /*
@@ -252,5 +253,8 @@ router
    *          $ref: '#/definitions/Producer'
    */
   .delete(controller.delete);
+
+router.use('/:producerId/locations', locationsRouter);
+router.use('/:producerId/products', productsRouter);
 
 module.exports = router;
