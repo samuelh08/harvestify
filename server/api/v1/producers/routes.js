@@ -253,6 +253,4 @@ router
    */
   .delete(controller.delete);
 
-// router.use('/:producerId/location', locationRouter);
-
 module.exports = router;
