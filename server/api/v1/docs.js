@@ -18,6 +18,7 @@ const options = {
     './server/api/v1/carts/routes.js',
     './server/api/v1/cartItems/routes.js',
     './server/api/v1/reviews/routes.js',
+    './server/api/v1/producers/routes.js',
   ],
 };
 
