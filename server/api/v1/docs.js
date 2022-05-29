@@ -20,6 +20,7 @@ const options = {
     './server/api/v1/reviews/routes.js',
     './server/api/v1/producers/routes.js',
     './server/api/v1/products/routes.js',
+    './server/api/v1/locations/routes.js',
   ],
 };
 
