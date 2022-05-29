@@ -146,7 +146,7 @@ router.route('/').get(controller.all);
  *        schema:
  *          $ref: '#/definitions/Producer'
  */
-router.route('/signup').get(controller.signup);
+router.route('/signup').post(controller.signup);
 
 /**
  * @swagger
@@ -172,7 +172,7 @@ router.route('/signup').get(controller.signup);
  *        schema:
  *          $ref: '#/definitions/Producer'
  */
-router.route('/login').get(controller.login);
+router.route('/login').post(controller.login);
 
 router
   .route('/:id')
