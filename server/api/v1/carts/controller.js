@@ -8,8 +8,8 @@ const {
 const { Model: Client } = require('../clients/model');
 
 const referencesNames = [
-  Object.getOwnPropertyNames(references),
-  Object.getOwnPropertyNames(virtuals),
+  ...Object.getOwnPropertyNames(references),
+  ...Object.getOwnPropertyNames(virtuals),
 ];
 
 exports.parentId = async (req, res, next) => {

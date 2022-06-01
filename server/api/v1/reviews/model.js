@@ -19,13 +19,13 @@ const fields = {
 
 const references = {
   cartId: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.ObjectId,
     ref: 'cart',
     required: true,
   },
 };
 
-const review = new Schema(fields, {
+const review = new Schema(Object.assign(fields, references), {
   timestamps: true,
 });
 

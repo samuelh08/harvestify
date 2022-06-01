@@ -37,13 +37,13 @@ const fields = {
 
 const references = {
   userId: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.ObjectId,
     ref: 'producer',
     required: true,
   },
 };
 
-const product = new Schema(fields, {
+const product = new Schema(Object.assign(fields, references), {
   timestamps: true,
 });
 

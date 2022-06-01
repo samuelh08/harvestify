@@ -21,18 +21,13 @@ const fields = {
 
 const references = {
   userId: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.ObjectId,
     ref: 'client',
-    required: true,
-  },
-  paymentId: {
-    type: Schema.Types.ObjectId,
-    ref: 'payment',
     required: true,
   },
 };
 
-const cart = new Schema(fields, {
+const cart = new Schema(Object.assign(fields, references), {
   timestamps: true,
   toJSON: {
     virtuals: true,

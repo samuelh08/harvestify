@@ -17,13 +17,13 @@ const references = {
     required: true,
   },
   productId: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.ObjectId,
     ref: 'product',
     required: true,
   },
 };
 
-const cartItem = new Schema(fields, {
+const cartItem = new Schema(Object.assign(fields, references), {
   timestamps: true,
 });
 

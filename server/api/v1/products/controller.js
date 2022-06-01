@@ -7,7 +7,7 @@ const {
 } = require('../../../utils');
 const { Model: Producer } = require('../producers/model');
 
-const referencesNames = [Object.getOwnPropertyNames(references)];
+const referencesNames = [...Object.getOwnPropertyNames(references)];
 
 exports.parentId = async (req, res, next) => {
   const { params = {} } = req;
@@ -59,7 +59,7 @@ exports.all = async (req, res, next) => {
   const { query = {} } = req;
   const { limit, page, skip } = paginationParseParams(query);
   const { sortBy, direction } = sortParseParams(query, fields);
-  const populate = populateToObject(referencesNames, virtuals);
+  const populate = populateToObject(referencesNames);
 
   const all = Model.find({})
     .sort(sortCompactToStr(sortBy, direction))
