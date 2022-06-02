@@ -14,6 +14,6 @@ router.use('/cartItems', cartItems);
 router.use('/reviews', reviews);
 router.use('/producers', producers);
 router.use('/products', products);
-router.use('/products', locations);
+router.use('/locations', locations);
 
 module.exports = router;
