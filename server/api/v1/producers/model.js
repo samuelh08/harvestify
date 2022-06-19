@@ -56,6 +56,16 @@ producer
     this.lastname = lastname;
   });
 
+const virtuals = {
+  products: {
+    ref: 'product',
+    localField: '_id',
+    foreignField: 'productId',
+  },
+};
+
+cart.virtual('products', virtuals.products);
+
 const hiddenFields = ['password'];
 
 // hide the password field
@@ -86,4 +96,5 @@ producer.methods.verifyPassword = function verifyPassword(password) {
 module.exports = {
   Model: mongoose.model('producer', producer),
   fields,
+  virtuals,
 };
