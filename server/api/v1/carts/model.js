@@ -40,10 +40,16 @@ const virtuals = {
     localField: '_id',
     foreignField: 'cartId',
   },
+  cartItemsCount: {
+    ref: 'cartItem',
+    localField: '_id',
+    foreignField: 'cartId',
+    count: true,
+  },
   review: {
     ref: 'review',
     localField: '_id',
-    foreignField: 'reviewId',
+    foreignField: 'cartId',
   },
 };
 
