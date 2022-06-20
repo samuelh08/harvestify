@@ -69,7 +69,8 @@ const virtuals = {
   },
 };
 
-cart.virtual('products', virtuals.products);
+producer.virtual('products', virtuals.products);
+producer.virtual('locations', virtuals.locations);
 
 const hiddenFields = ['password'];
 
