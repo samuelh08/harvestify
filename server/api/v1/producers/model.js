@@ -60,12 +60,12 @@ const virtuals = {
   products: {
     ref: 'product',
     localField: '_id',
-    foreignField: 'producerId',
+    foreignField: 'userId',
   },
   locations: {
     ref: 'location',
     localField: '_id',
-    foreignField: 'producerId',
+    foreignField: 'userId',
   },
 };
 

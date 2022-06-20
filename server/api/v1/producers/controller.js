@@ -1,14 +1,17 @@
-const { Model, fields } = require('./model');
+const { Model, fields, virtuals } = require('./model');
 const { signToken } = require('../auth');
 const {
   paginationParseParams,
   sortParseParams,
   sortCompactToStr,
+  populateToObject,
 } = require('../../../utils');
+const referencesNames = Object.getOwnPropertyNames(virtuals);
 
 exports.id = async (req, res, next, id) => {
+  const populate = referencesNames.join(' ');
   try {
-    const doc = await Model.findById(id).exec();
+    const doc = await Model.findById(id).populate(populate).exec();
     if (!doc) {
       const message = `${Model.modelName} not found`;
       next({
@@ -94,11 +97,13 @@ exports.all = async (req, res, next) => {
   const { query = {} } = req;
   const { limit, page, skip } = paginationParseParams(query);
   const { sortBy, direction } = sortParseParams(query, fields);
+  const populate = populateToObject(referencesNames, virtuals);
 
   const all = Model.find({})
     .sort(sortCompactToStr(sortBy, direction))
     .skip(skip)
-    .limit(limit);
+    .limit(limit)
+    .populate(populate);
   const count = Model.countDocuments();
 
   try {
