@@ -17,7 +17,7 @@ exports.parentId = async (req, res, next) => {
       if (doc) {
         next();
       } else {
-        const message = 'ORder not found';
+        const message = 'Order not found';
 
         next({
           success: false,
@@ -137,7 +137,7 @@ exports.delete = async (req, res, next) => {
   Object.assign(doc, body);
 
   try {
-    const removed = await doc.save();
+    const removed = await doc.remove();
     res.json({
       success: true,
       data: removed,

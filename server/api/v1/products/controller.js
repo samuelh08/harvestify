@@ -145,7 +145,7 @@ exports.delete = async (req, res, next) => {
   Object.assign(doc, body);
 
   try {
-    const removed = await doc.save();
+    const removed = await doc.remove();
     res.json({
       success: true,
       data: removed,
