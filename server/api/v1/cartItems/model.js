@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 
 const fields = {
   quantity: {
-    type: String,
+    type: Number,
     required: true,
     trim: true,
   },
