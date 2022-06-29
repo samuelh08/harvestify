@@ -54,7 +54,7 @@ const virtuals = {
 };
 
 cart.virtual('cartItems', virtuals.cartItems);
-cart.virtual('cartItemsCount', virtuals.cartItems);
+cart.virtual('cartItemsCount', virtuals.cartItemsCount);
 cart.virtual('review', virtuals.review);
 
 const sanitizers = [body('adress').escape()];
