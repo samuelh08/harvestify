@@ -41,7 +41,14 @@ exports.parentId = async (req, res, next) => {
 exports.id = async (req, res, next, id) => {
   const populate = referencesNames.join(' ');
   try {
-    const doc = await Model.findById(id).populate(populate).exec();
+    const doc = await Model.findById(id)
+      .populate(populate)
+      .populate({
+        path: 'cartItems',
+        select: 'productId',
+        populate: { path: 'productId' },
+      })
+      .exec();
     if (!doc) {
       const message = `${Model.modelName} not found`;
       next({
@@ -68,7 +75,12 @@ exports.all = async (req, res, next) => {
     .sort(sortCompactToStr(sortBy, direction))
     .skip(skip)
     .limit(limit)
-    .populate(populate);
+    .populate(populate)
+    .populate({
+      path: 'cartItems',
+      select: 'productId',
+      populate: { path: 'productId' },
+    });
   const count = Model.countDocuments();
 
   try {
