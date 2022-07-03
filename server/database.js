@@ -22,20 +22,20 @@ exports.connect = (
   });
 
   mongoose.connection.on('open', () => {
-    logger.info('Databse connected');
+    logger.info('Database connected');
   });
 
   mongoose.connection.on('close', () => {
-    logger.info('Databse disconnected');
+    logger.info('Database disconnected');
   });
 
   mongoose.connection.on('error', (err) => {
-    logger.error(`Databse connection error: ${err}`);
+    logger.error(`Database connection error: ${err}`);
   });
 
   process.on('SIGINT', () => {
     mongoose.connection.close(() => {
-      logger.info('Databse connection disconnected through app termination');
+      logger.info('Database connection disconnected through app termination');
       process.exit(0);
     });
   });
@@ -43,6 +43,6 @@ exports.connect = (
 
 exports.disconnect = () => {
   mongoose.connection.close(() => {
-    logger.info('Databse disconnected');
+    logger.info('Database disconnected');
   });
 };
