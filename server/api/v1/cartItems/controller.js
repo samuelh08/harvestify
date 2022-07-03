@@ -5,7 +5,7 @@ const {
   sortCompactToStr,
 } = require('../../../utils');
 
-const { Model: Client } = require('../clients/model');
+const { Model: Cart } = require('../carts/model');
 
 const referencesNames = Object.getOwnPropertyNames(references);
 
@@ -14,11 +14,11 @@ exports.parentId = async (req, res, next) => {
   const { userId = null } = params;
   if (userId) {
     try {
-      const doc = await Client.findById(userId).exec();
+      const doc = await Cart.findById(userId).exec();
       if (doc) {
         next();
       } else {
-        const message = 'Client not found';
+        const message = 'Cart not found';
 
         next({
           success: false,
