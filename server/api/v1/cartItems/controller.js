@@ -11,10 +11,10 @@ const referencesNames = Object.getOwnPropertyNames(references);
 
 exports.parentId = async (req, res, next) => {
   const { params = {} } = req;
-  const { userId = null } = params;
-  if (userId) {
+  const { cartId = null } = params;
+  if (cartId) {
     try {
-      const doc = await Cart.findById(userId).exec();
+      const doc = await Cart.findById(cartId).exec();
       if (doc) {
         next();
       } else {

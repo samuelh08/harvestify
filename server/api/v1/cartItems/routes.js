@@ -215,7 +215,7 @@ router
    *        schema:
    *          $ref: '#/definitions/CartItem'
    */
-  .delete(auth, owner, controller.parentId, controller.delete);
+  .delete(auth, controller.parentId, controller.delete);
 
 router.use('/:cartItemId/products', productsRouter);
 
