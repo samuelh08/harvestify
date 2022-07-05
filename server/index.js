@@ -1,5 +1,5 @@
 const express = require('express');
-// const requestId = require('express-request-id')();
+const { v4: uuidv4 } = require('uuid');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const swaggerUI = require('swagger-ui-express');
@@ -24,7 +24,10 @@ app.use(
 );
 
 // Setup middleware
-// app.use(requestId);
+app.use((req, res, next) => {
+  req.id = uuidv4();
+  next();
+});
 app.use(logger.requests);
 
 // parse application/x-www-form-urlencoded
@@ -35,6 +38,8 @@ app.use(bodyParser.json());
 // Setup router and routes
 app.use('/api', api);
 app.use('/api/v1', api);
+
+app.use('/uploads', express.static('uploads'));
 
 // Routes
 app.get('/', (req, res, next) => {
@@ -54,13 +59,13 @@ app.use((req, res, next) => {
 
 // Error handler
 app.use((err, req, res, next) => {
-  const { message, level = 'error' } = err;
+  const { message = '', level = 'error' } = err;
   let { statusCode = 500 } = err;
   const log = `${logger.header(req)} ${statusCode} ${message}`;
 
   // Validation errors
-  if (err.message.startsWith('ValidationError')) {
-    statusCode = 422;
+  if (err?.name === 'ValidationError' || err?.name === 'MulterError') {
+    statusCode = 400;
   }
 
   logger[level](log);

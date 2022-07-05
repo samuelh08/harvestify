@@ -41,9 +41,11 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.1",
     "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
     "strip-final-newline": "^3.0.0",
     "swagger-jsdoc": "^6.2.1",
     "swagger-ui-express": "^4.4.0",
+    "uuidv4": "^6.2.13",
     "validator": "^13.7.0",
     "winston": "^3.7.2"
   }

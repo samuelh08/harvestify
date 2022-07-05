@@ -20,9 +20,14 @@ const fields = {
     trim: true,
   }, // name of product
   picture: {
-    type: String,
-    required: true,
-    trim: true,
+    fieldname: String,
+    originalname: String,
+    encoding: String,
+    mimetype: String,
+    destination: String,
+    filename: String,
+    path: String,
+    size: Number,
   }, // picture of product
   category: {
     type: String,

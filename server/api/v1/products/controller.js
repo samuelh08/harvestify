@@ -92,13 +92,13 @@ exports.all = async (req, res, next) => {
 };
 
 exports.create = async (req, res, next) => {
-  const { body = {}, params = {}, decoded = {} } = req;
+  const { body = {}, params = {}, decoded = {}, file = {} } = req;
   const { _id = null } = decoded;
   if (_id) {
     body.userId = _id;
   }
 
-  Object.assign(body, params);
+  Object.assign(body, params, { picture: file });
 
   const document = new Model(body);
 

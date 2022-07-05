@@ -3,6 +3,7 @@ const router = require('express').Router({
 });
 const controller = require('./controller');
 const { auth, owner } = require('../auth');
+const upload = require('../upload');
 
 /*
  * /api/products/ POST - CREATE
@@ -79,7 +80,7 @@ router
    *        schema:
    *          $ref: '#/definitions/Product'
    */
-  .post(controller.create)
+  .post(auth, upload.single('picture'), controller.create)
   /**
    * @swagger
    * /products/:
