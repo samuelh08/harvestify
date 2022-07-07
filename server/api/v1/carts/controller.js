@@ -48,6 +48,11 @@ exports.id = async (req, res, next, id) => {
         select: 'productId',
         populate: { path: 'productId' },
       })
+      .populate({
+        path: 'cartItems',
+        select: 'quantity',
+        populate: { path: 'quantity' },
+      })
       .exec();
     if (!doc) {
       const message = `${Model.modelName} not found`;
@@ -80,6 +85,11 @@ exports.all = async (req, res, next) => {
       path: 'cartItems',
       select: 'productId',
       populate: { path: 'productId' },
+    })
+    .populate({
+      path: 'cartItems',
+      select: 'quantity',
+      populate: { path: 'quantity' },
     });
   const count = Model.countDocuments();
 
