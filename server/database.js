@@ -17,7 +17,9 @@ exports.connect = (
     dburl = `${protocol}://${url}`;
   }
 
-  mongoose.connect(dburl, {
+  const mongourl = process.env.MONGO_ATLAS || dburl;
+
+  mongoose.connect(mongourl, {
     ...options,
   });
 
