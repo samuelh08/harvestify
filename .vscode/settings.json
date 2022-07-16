@@ -1,0 +1,11 @@
+{
+  "editor.formatOnSave": true,
+  "editor.renderWhitespace": "all",
+  "editor.renderControlCharacters": true,
+  "editor.trimAutoWhitespace": true,
+  "editor.tabSize": 2,
+  "files.insertFinalNewline": true,
+  "files.eol": "\n",
+  "prettier.trailingComma": "es5",
+  "prettier.eslintIntegration": true
+}
