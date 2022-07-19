@@ -17,6 +17,11 @@ const fields = {
     type: Number,
     required: true,
   },
+  payed: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
 };
 
 const references = {
