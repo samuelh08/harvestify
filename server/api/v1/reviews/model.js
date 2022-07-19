@@ -14,6 +14,7 @@ const fields = {
     type: String,
     required: false,
     trim: true,
+    max: 800,
   },
 };
 
