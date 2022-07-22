@@ -123,7 +123,7 @@ exports.create = async (req, res, next) => {
     body.userId = _id;
   }
 
-  Object.assign(body, params, { payed: false });
+  Object.assign(body, params);
 
   const document = new Model(body);
 

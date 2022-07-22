@@ -82,8 +82,8 @@ const owner = (req, res, next) => {
 };
 
 module.exports = {
-  signToken,
-  auth,
-  me,
-  owner,
+  signToken, // se da el token si loggin es correcto
+  auth, // esta loggueado y tiene token valido
+  me, // esta modificando su propio documento
+  owner, // es el propietario del documento
 };
